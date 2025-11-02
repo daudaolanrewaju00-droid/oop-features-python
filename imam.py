@@ -1,35 +1,43 @@
-from abc import ABC, abstractmethod
+# imam.py
 
-# Abstraction and Encapsulation
-class Employee(ABC):
-    def _init_(self, name, salary):
+# Base class (Encapsulation)
+class Employee:
+    def __init__(self, name, salary):
         self.name = name
-        self.__salary = salary  # Encapsulation (private attribute)
+        self.salary = salary
 
-    @abstractmethod
-    def calculate_bonus(self):
-        pass  # Abstraction
+    def display_info(self):
+        print(f"Employee Name: {self.name}")
+        print(f"Salary: ₦{self.salary}")
 
-    def get_salary(self):
-        return self.__salary
-
-
-# Inheritance and Polymorphism
+# Inheritance
 class Manager(Employee):
+    def __init__(self, name, salary):
+        super().__init__(name, salary)  # inherit from Employee
+
+    # Polymorphism (method overriding)
     def calculate_bonus(self):
-        return self.get_salary() * 0.20  # Polymorphism
+        return self.salary * 0.2
 
-
+# Another subclass
 class Developer(Employee):
+    def __init__(self, name, salary):
+        super().__init__(name, salary)
+
     def calculate_bonus(self):
-        return self.get_salary() * 0.10  # Polymorphism
+        return self.salary * 0.1
 
+# Abstraction via simple interface (demonstration)
+def show_bonus(employee):
+    print(f"{employee.name}'s Bonus: ₦{employee.calculate_bonus()}")
 
-# Creating objects and using them
+# Testing the integration
 employees = [
     Manager("Aregbe", 100000),
     Developer("Mimi", 80000)
 ]
 
 for emp in employees:
-    print(f"{emp.name}'s Bonus: ₦{emp.calculate_bonus()}")
+    emp.display_info()
+    show_bonus(emp)
+    print("-" * 40)
